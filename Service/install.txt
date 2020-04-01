@@ -1,0 +1,28 @@
+﻿sc create Service binpath="D:\Documents\Visual Studio 2019\repos\Service\Service\bin\Debug\net48\Service.exe"
+sc start Service
+sc stop Service
+sc delete Service
+
+===lx
+/etc/systemd/system/coreservice.service
+
+systemctl daemon-reload
+systemctl start coreservice
+systemctl stop coreservice
+systemctl status coreservice -l
+
+[Unit]
+Description=.NET Core Example Daemon
+
+[Service]
+User=root
+WorkingDirectory=/usr/myservice
+Type=oneshotmc
+RemainAfterExit=yes
+ExecStart=/usr/bin/dotnet Service.dll --name Daemon
+Restart=always
+RestartSec=10
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target
